@@ -11,8 +11,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Web_API.Data;
+using Web_API.Repository;
 
 namespace Web_API
 {
@@ -36,8 +38,15 @@ namespace Web_API
             });
             services.AddDbContext<Context>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("StudentManagerment"));
+                options.UseSqlServer(Configuration.GetConnectionString("StudentManagement"));
             });
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+                options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<Context>();
+            services.AddTransient<ISchoolRepository, SchoolRepository>();
+            services.AddTransient<IMajorsRepository, MajorsRepository>();
+            services.AddTransient<IGradeRepository, GradeRepository>();
+            services.AddTransient<IStudentRepository, StudentRepository>();
+            services.AddTransient<ISubjectRepository, SubjectRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
