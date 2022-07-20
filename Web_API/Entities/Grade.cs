@@ -10,6 +10,6 @@ namespace Web_API.Entities
         public Status? Status { get; set; }
         public int MajorId { get; set; }
         public Majors Major { get; set; }
-        public ICollection<Student> Student { get; set; }
+        public ICollection<Student>? Student { get; set; }
     }
 }

@@ -10,6 +10,6 @@ namespace Web_API.Entities
         public double Summary { get; set; }
         public Status? Status { get; set; }
         public int TranScripId { get; set; }
-        public ICollection<Student> Student { get; set; }
+        public ICollection<Student>? Student { get; set; }
     }
 }

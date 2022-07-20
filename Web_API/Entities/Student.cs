@@ -14,6 +14,6 @@ namespace Web_API.Entities
         public Status Status { get; set; }
         public int GradeId { get; set; }
         public Grade Grade { get; set; }
-        public ICollection<Subject> Subject { get; set; }
+        public ICollection<Subject>? Subject { get; set; }
     }
 }

@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Web_API.Data;
 using Web_API.Entities;
 using Web_API.Repository;
 
@@ -23,15 +16,15 @@ namespace Web_API.Controllers
             _iSchoolRepository = iSchoolRepository;
         }
 
-        // GET: api/Schools
+        //List
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var school = await _iSchoolRepository.GetList();
-            return Ok(school);
+         
+            return Ok(await _iSchoolRepository.GetList());
         }
 
-        // GET: api/Schools/5
+        //Search
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSchool(int id)
         {
@@ -44,11 +37,10 @@ namespace Web_API.Controllers
 
             return Ok(school);
         }
-        // POST: api/Schools
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-
-         [HttpPost("AddSchool")]
-        public async Task<IActionResult> PostSchool(School school)
+     
+        //AddSchool
+         [HttpPost]
+        public async Task<IActionResult> PostSchool([FromBody] School school)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -57,8 +49,7 @@ namespace Web_API.Controllers
             return CreatedAtAction("GetSchool", new { id = school.SchoolId }, schools);
         }
 
-        // PUT: api/Schools/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //Edit School
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSchool(int id, School school)
         {
@@ -72,12 +63,12 @@ namespace Web_API.Controllers
 
             schoolForm.Name = school.Name;
             schoolForm.Status = school.Status;
-            var schools = await _iSchoolRepository.Update(school);
+            var schools = await _iSchoolRepository.Update(schoolForm);
 
             return Ok(schools);
         }
 
-        // DELETE: api/Schools/5
+        // DELETE School
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSchool(int id)
         {
@@ -90,10 +81,6 @@ namespace Web_API.Controllers
             }
             return Ok(await _iSchoolRepository.Delete(school));
         }
-
-      
-
-     
 
     }
 }
