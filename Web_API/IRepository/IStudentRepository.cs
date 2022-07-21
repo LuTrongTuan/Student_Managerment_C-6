@@ -7,7 +7,7 @@ namespace Web_API.Repository
     public interface IStudentRepository
     {
         Task<IEnumerable<Student>> GetList();
-        Task<Student> GetById(int id);
+        Task<Student> GetById(string studentId);
         Task<Student> Create(Student student);
         Task<Student> Update(Student student);
         Task<Student> Delete(Student student);

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Web_API.Data;
@@ -9,23 +10,25 @@ namespace Web_API.Repository
     public class StudentRepository:IStudentRepository
     {
         private readonly Context _context;
-
+        private List<Student> _students;
         public StudentRepository(Context context)
         {
             _context = context;
+            _students = new List<Student>();
         }
         public async Task<IEnumerable<Student>> GetList()
         {
             return await _context.Students.ToListAsync();
         }
 
-        public async Task<Student> GetById(int id)
+        public async Task<Student> GetById(string studentId)
         {
-            return await _context.Students.FindAsync(id);
+            return await _context.Students.FindAsync(studentId);
         }
 
         public async Task<Student> Create(Student student)
         {
+            student.StudentId = "PH" + _students.Max(c => c.StudentId) + 1;
             await _context.Students.AddAsync(student);
             await _context.SaveChangesAsync();
             return student;

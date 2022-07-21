@@ -64,22 +64,13 @@ namespace Web_API.Controllers
         // POST: api/Majors
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<IActionResult> PostMajors(Majors majors)
+        public IActionResult PostMajors(Majors majors)
         {
-            try
-            {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
-                var major = await _majorsRepository.Create(majors);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var major = _majorsRepository.Create(majors);
 
-                return CreatedAtAction("GetMajors", new { id = majors.MajorId }, major);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-
-            return Ok();
+            return CreatedAtAction("GetMajors", new { id = majors.MajorId }, major);
         }
 
         // DELETE: api/Majors/5

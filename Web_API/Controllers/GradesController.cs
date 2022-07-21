@@ -44,7 +44,7 @@ namespace Web_API.Controllers
         }
         // POST: api/Grades
         [HttpPost]
-        public async Task<ActionResult<Grade>> PostGrade(Grade grade)
+        public async Task<IActionResult> PostGrade(Grade grade)
         {
 
             var grades = await _maGradeRepository.Create(grade);
