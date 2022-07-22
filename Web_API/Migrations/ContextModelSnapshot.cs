@@ -215,21 +215,6 @@ namespace Web_API.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("StudentSubject", b =>
-                {
-                    b.Property<string>("StudentId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.HasKey("StudentId", "SubjectId");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("StudentSubject");
-                });
-
             modelBuilder.Entity("Web_API.Entities.Grade", b =>
                 {
                     b.Property<int>("GradeId")
@@ -237,21 +222,21 @@ namespace Web_API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("MajorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("Name");
 
-                    b.Property<int?>("Status")
+                    b.Property<int>("SchoolId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("GradeId");
 
-                    b.HasIndex("MajorId");
+                    b.HasIndex("SchoolId");
 
                     b.ToTable("Grades");
                 });
@@ -272,7 +257,7 @@ namespace Web_API.Migrations
                     b.Property<int>("SchoolId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Status")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("MajorId");
@@ -295,7 +280,7 @@ namespace Web_API.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("Name");
 
-                    b.Property<int?>("Status")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("SchoolId");
@@ -305,8 +290,10 @@ namespace Web_API.Migrations
 
             modelBuilder.Entity("Web_API.Entities.Student", b =>
                 {
-                    b.Property<string>("StudentId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("StudentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
                         .HasMaxLength(500)
@@ -326,6 +313,9 @@ namespace Web_API.Migrations
                     b.Property<int>("GradeId")
                         .HasColumnType("int");
 
+                    b.Property<int>("MajorId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
@@ -343,7 +333,31 @@ namespace Web_API.Migrations
 
                     b.HasIndex("GradeId");
 
+                    b.HasIndex("MajorId");
+
                     b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("Web_API.Entities.StudentSubject", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("StudentSubjects");
                 });
 
             modelBuilder.Entity("Web_API.Entities.Subject", b =>
@@ -359,16 +373,19 @@ namespace Web_API.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("Name");
 
-                    b.Property<int?>("Status")
+                    b.Property<int>("SchoolId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<double>("Summary")
-                        .HasColumnType("float");
-
-                    b.Property<int>("TranScripId")
-                        .HasColumnType("int");
+                        .HasColumnType("float")
+                        .HasColumnName("Summary");
 
                     b.HasKey("SubjectId");
+
+                    b.HasIndex("SchoolId");
 
                     b.ToTable("Subjects");
                 });
@@ -424,30 +441,15 @@ namespace Web_API.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("StudentSubject", b =>
-                {
-                    b.HasOne("Web_API.Entities.Student", null)
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Web_API.Entities.Subject", null)
-                        .WithMany()
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Web_API.Entities.Grade", b =>
                 {
-                    b.HasOne("Web_API.Entities.Majors", "Major")
+                    b.HasOne("Web_API.Entities.School", "School")
                         .WithMany("Grade")
-                        .HasForeignKey("MajorId")
+                        .HasForeignKey("SchoolId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Major");
+                    b.Navigation("School");
                 });
 
             modelBuilder.Entity("Web_API.Entities.Majors", b =>
@@ -469,7 +471,45 @@ namespace Web_API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Web_API.Entities.Majors", "Major")
+                        .WithMany("Student")
+                        .HasForeignKey("MajorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Grade");
+
+                    b.Navigation("Major");
+                });
+
+            modelBuilder.Entity("Web_API.Entities.StudentSubject", b =>
+                {
+                    b.HasOne("Web_API.Entities.Student", "Student")
+                        .WithMany("StudentSubject")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Web_API.Entities.Subject", "Subject")
+                        .WithMany("StudentSubject")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Subject");
+                });
+
+            modelBuilder.Entity("Web_API.Entities.Subject", b =>
+                {
+                    b.HasOne("Web_API.Entities.School", "School")
+                        .WithMany("Subject")
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("School");
                 });
 
             modelBuilder.Entity("Web_API.Entities.Grade", b =>
@@ -479,12 +519,26 @@ namespace Web_API.Migrations
 
             modelBuilder.Entity("Web_API.Entities.Majors", b =>
                 {
-                    b.Navigation("Grade");
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Web_API.Entities.School", b =>
                 {
+                    b.Navigation("Grade");
+
                     b.Navigation("Major");
+
+                    b.Navigation("Subject");
+                });
+
+            modelBuilder.Entity("Web_API.Entities.Student", b =>
+                {
+                    b.Navigation("StudentSubject");
+                });
+
+            modelBuilder.Entity("Web_API.Entities.Subject", b =>
+                {
+                    b.Navigation("StudentSubject");
                 });
 #pragma warning restore 612, 618
         }

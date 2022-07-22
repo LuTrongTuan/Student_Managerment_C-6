@@ -1,0 +1,23 @@
+﻿@*@page "/School"
+<h3>School</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (Schools != null && Schools.Count() > 0)
+    {
+        @foreach (var x in Schools)
+        {
+            <tr>
+                <td>@x.Name</td>
+                <td>@x.Status</td>
+            </tr>
+        }
+    }
+   
+    </tbody>
+</table>*@

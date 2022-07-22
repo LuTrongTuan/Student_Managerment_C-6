@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using DTO.SubjectDto;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Web_API.Data;
 using Web_API.Entities;
 using Web_API.Repository;
 
@@ -26,7 +23,14 @@ namespace Web_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Subject>>> GetSubjects()
         {
-            return Ok(await _subjectRepository.GetList());
+            var subject = await _subjectRepository.GetList();
+            var subjects = subject.Select(c => new SubjectViewModel()
+            {
+                SubjectId = c.SubjectId,
+                Name = c.Name,
+                Status = c.Status
+            });
+            return Ok(subjects);
         }
 
         // GET: api/Subjects/5
@@ -40,13 +44,18 @@ namespace Web_API.Controllers
                 return NotFound();
             }
 
-            return Ok(subject);
+            return Ok(new SubjectViewModel()
+            {
+                SubjectId = subject.SubjectId,
+                Name = subject.Name,
+                Summary = subject.Summary,
+                Status = subject.Status
+            });
         }
 
         // PUT: api/Subjects/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSubject(int id, Subject subject)
+        public async Task<IActionResult> PutSubject(int id, SubjectViewModel subjectViewModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -56,22 +65,35 @@ namespace Web_API.Controllers
                 return NotFound($"{id} is not fond");
             }
 
-            subjectForm.Name = subject.Name;
-            subjectForm.Summary = subject.Summary;
-            subjectForm.Status = subject.Status;
+            subjectForm.Name = subjectViewModel.Name;
+            subjectForm.Summary = subjectViewModel.Summary;
+            subjectForm.Status = subjectViewModel.Status;
             var result = await _subjectRepository.Update(subjectForm);
-            return Ok(result);
+            return Ok(new SubjectViewModel()
+            {
+                SubjectId = result.SubjectId,
+                Name = result.Name,
+                Summary = result.Summary,
+                Status = result.Status
+            });
         }
 
         // POST: api/Subjects
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Subject>> PostSubject(Subject subject)
+        public async Task<ActionResult<Subject>> PostSubject(SubjectViewModel subjectViewModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            var subjects = await _subjectRepository.Create(subject);
-            return CreatedAtAction("GetSubject", new { id = subject.SubjectId }, subjects);
+            //var subjects = await _subjectRepository.Create(subjectViewModel);
+            var subjects = await _subjectRepository.Create(new Subject()
+            {
+                SubjectId = subjectViewModel.SubjectId,
+                Name = subjectViewModel.Name,
+                Summary = subjectViewModel.Summary,
+                Status = subjectViewModel.Status
+            });
+
+            return CreatedAtAction("GetSubject", new { id = subjects.SubjectId }, subjects);
         }
 
         // DELETE: api/Subjects/5

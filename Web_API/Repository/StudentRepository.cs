@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Web_API.Data;
@@ -10,11 +11,9 @@ namespace Web_API.Repository
     public class StudentRepository:IStudentRepository
     {
         private readonly Context _context;
-        private List<Student> _students;
         public StudentRepository(Context context)
         {
             _context = context;
-            _students = new List<Student>();
         }
         public async Task<IEnumerable<Student>> GetList()
         {
@@ -28,7 +27,6 @@ namespace Web_API.Repository
 
         public async Task<Student> Create(Student student)
         {
-            student.StudentId = "PH" + _students.Max(c => c.StudentId) + 1;
             await _context.Students.AddAsync(student);
             await _context.SaveChangesAsync();
             return student;

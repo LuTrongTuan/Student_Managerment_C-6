@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Web_API.Enums;
+using DTO.Enums;
 
 namespace Web_API.Entities
 {
@@ -7,7 +7,9 @@ namespace Web_API.Entities
     {
         public int SchoolId { get; set; }
         public string Name { get; set; }
-        public Status? Status { get; set; }
-        public ICollection<Majors>? Major { get; set; }
+        public Status Status { get; set; }
+        public List<Majors>? Major { get; set; }
+        public List<Grade>? Grade { get; set; }
+        public List<Subject>? Subject { get; set; }
     }
 }

@@ -35,12 +35,26 @@ namespace Web_API.Data
             builder.Entity<Majors>().Property(c => c.Name).HasColumnName("Name").HasMaxLength(50).IsRequired();
             //Subject
             builder.Entity<Subject>().Property(c => c.Name).HasColumnName("Name").HasMaxLength(50).IsRequired();
+            //Subject
+            builder.Entity<Subject>().Property(c => c.Summary).HasColumnName("Summary");
 
             //Foreign key
             builder.Entity<Majors>().HasOne<School>(c => c.School).WithMany(c => c.Major).HasForeignKey(c => c.SchoolId);
-            builder.Entity<Grade>().HasOne<Majors>(c => c.Major).WithMany(c => c.Grade).HasForeignKey(c => c.MajorId);
+            builder.Entity<Grade>().HasOne<School>(c => c.School).WithMany(c => c.Grade).HasForeignKey(c => c.SchoolId);
+            builder.Entity<Subject>().HasOne<School>(c => c.School).WithMany(c => c.Subject).HasForeignKey(c => c.SchoolId);
+
+
+
+
             builder.Entity<Student>().HasOne<Grade>(c => c.Grade).WithMany(c => c.Student).HasForeignKey(c => c.GradeId);
-            builder.Entity<Subject>().HasMany<Student>(c => c.Student).WithMany(c => c.Subject);
+            builder.Entity<Student>().HasOne<Majors>(c => c.Major).WithMany(c => c.Student).HasForeignKey(c => c.MajorId);
+
+            builder.Entity<StudentSubject>().HasOne<Student>(c => c.Student).WithMany(c => c.StudentSubject)
+                .HasForeignKey(c => c.StudentId);
+
+
+            builder.Entity<StudentSubject>().HasOne<Subject>(c => c.Subject).WithMany(c => c.StudentSubject)
+                .HasForeignKey(c => c.SubjectId);
         }
 
         public DbSet<Student> Students { get; set; }
@@ -48,5 +62,6 @@ namespace Web_API.Data
         public DbSet<Grade> Grades { get; set; }
         public DbSet<Majors> Majors { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+        public DbSet<StudentSubject> StudentSubjects { get; set; }
     }
 }

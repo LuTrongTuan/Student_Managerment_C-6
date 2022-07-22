@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using DTO.StudentDto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web_API.Data;
@@ -26,7 +25,17 @@ namespace Web_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
         {
-            return Ok(await _studentRepository.GetList());
+            var student = await _studentRepository.GetList();
+            var students = student.Select(x => new StudentViewModel()
+            {
+                Id = x.StudentId,
+                Name = x.Name,
+                Phone = x.Phone,
+                Address = x.Address,
+                Email = x.Email,
+                Gender = x.Gender
+            });
+            return Ok(students);
         }
 
         // GET: api/Students/5
@@ -40,12 +49,19 @@ namespace Web_API.Controllers
                 return NotFound();
             }
 
-            return Ok(student);
+            return Ok(new StudentViewModel()
+            {
+                Id = student.StudentId,
+                Name = student.Name,
+                Phone = student.Phone,
+                Address = student.Address,
+                Email = student.Email,
+                Gender = student.Gender
+            });
         }
-
         // PUT: api/Students/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStudent(string id, Student student)
+        public async Task<IActionResult> PutStudent(string id, StudentViewModel studentViewModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -56,22 +72,39 @@ namespace Web_API.Controllers
                 return NotFound($"{id} is not fond");
             }
 
-            studentForm.Name = student.Name;
-            studentForm.Address = student.Address;
-            studentForm.Email = student.Email;
-            studentForm.Gender = student.Gender;
-            studentForm.Phone = student.Phone;
-            studentForm.Status = student.Status;
+            studentForm.Name = studentViewModel.Name;
+            studentForm.Address = studentViewModel.Address;
+            studentForm.Email = studentViewModel.Email;
+            studentForm.Gender = studentViewModel.Gender;
+            studentForm.Phone = studentViewModel.Phone;
+            studentForm.Status = studentViewModel.Status;
             var result = await _studentRepository.Update(studentForm);
-            return Ok(result);
+            return Ok(new StudentViewModel()
+            {
+                Id = result.StudentId,
+                Name = result.Name,
+                Phone = result.Phone,
+                Address = result.Address,
+                Email = result.Email,
+                Gender = result.Gender
+            });
         }
 
         // POST: api/Students
         [HttpPost]
-        public async Task<ActionResult<Student>> PostStudent(Student student)
+        public async Task<ActionResult<Student>> PostStudent(StudentViewModel studentViewModel)
         {
-            var students = await _studentRepository.Create(student);
-            return CreatedAtAction("GetStudent", new { id = student.StudentId }, students);
+            
+            var students = await _studentRepository.Create(new Student()
+            {
+                StudentId = studentViewModel.Id,
+                Name = studentViewModel.Name,
+                Phone = studentViewModel.Phone,
+                Address = studentViewModel.Address,
+                Email = studentViewModel.Email,
+                Gender = studentViewModel.Gender
+            });
+            return CreatedAtAction("GetStudent", new { id = students.StudentId }, students);
         }
 
         // DELETE: api/Students/5

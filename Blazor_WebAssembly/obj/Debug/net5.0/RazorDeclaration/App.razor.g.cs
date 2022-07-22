@@ -13,70 +13,70 @@ namespace Blazor_WebAssembly
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Assignment_CSharpt_6\Blazor_WebAssembly\_Imports.razor"
+#line 1 "C:\Users\Admin\Desktop\C#6\Student_Managerment_C-6\Blazor_WebAssembly\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Assignment_CSharpt_6\Blazor_WebAssembly\_Imports.razor"
+#line 2 "C:\Users\Admin\Desktop\C#6\Student_Managerment_C-6\Blazor_WebAssembly\_Imports.razor"
 using System.Net.Http.Json;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Assignment_CSharpt_6\Blazor_WebAssembly\_Imports.razor"
+#line 3 "C:\Users\Admin\Desktop\C#6\Student_Managerment_C-6\Blazor_WebAssembly\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Assignment_CSharpt_6\Blazor_WebAssembly\_Imports.razor"
+#line 4 "C:\Users\Admin\Desktop\C#6\Student_Managerment_C-6\Blazor_WebAssembly\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Assignment_CSharpt_6\Blazor_WebAssembly\_Imports.razor"
+#line 5 "C:\Users\Admin\Desktop\C#6\Student_Managerment_C-6\Blazor_WebAssembly\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Assignment_CSharpt_6\Blazor_WebAssembly\_Imports.razor"
+#line 6 "C:\Users\Admin\Desktop\C#6\Student_Managerment_C-6\Blazor_WebAssembly\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Assignment_CSharpt_6\Blazor_WebAssembly\_Imports.razor"
+#line 7 "C:\Users\Admin\Desktop\C#6\Student_Managerment_C-6\Blazor_WebAssembly\_Imports.razor"
 using Microsoft.AspNetCore.Components.WebAssembly.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Assignment_CSharpt_6\Blazor_WebAssembly\_Imports.razor"
+#line 8 "C:\Users\Admin\Desktop\C#6\Student_Managerment_C-6\Blazor_WebAssembly\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Assignment_CSharpt_6\Blazor_WebAssembly\_Imports.razor"
+#line 9 "C:\Users\Admin\Desktop\C#6\Student_Managerment_C-6\Blazor_WebAssembly\_Imports.razor"
 using Blazor_WebAssembly;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Assignment_CSharpt_6\Blazor_WebAssembly\_Imports.razor"
+#line 10 "C:\Users\Admin\Desktop\C#6\Student_Managerment_C-6\Blazor_WebAssembly\_Imports.razor"
 using Blazor_WebAssembly.Shared;
 
 #line default

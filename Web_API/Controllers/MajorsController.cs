@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DTO.MajorDto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +27,15 @@ namespace Web_API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMajors()
         {
-            return Ok(await _majorsRepository.GetList());
+            var major = await _majorsRepository.GetList();
+            var majors = major.Select(x => new MajorViewModel()
+            {
+                Id = x.MajorId,
+                Name = x.Name,
+                Status = x.Status,
+                SchoolId = x.SchoolId
+            });
+            return Ok(majors);
         }
 
         // GET: api/Majors/5
@@ -40,11 +49,17 @@ namespace Web_API.Controllers
                 return NotFound();
             }
 
-            return Ok(majors);
+            return Ok(new MajorViewModel()
+            {
+                Id = majors.MajorId,
+                Name = majors.Name,
+                Status = majors.Status,
+                SchoolId = majors.SchoolId
+            });
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMajors(int id, Majors majors)
+        public async Task<IActionResult> PutMajors(int id, MajorViewModel majorViewModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -54,23 +69,35 @@ namespace Web_API.Controllers
                 return NotFound($"{id} is not fond");
             }
 
-            majorForm.Name = majors.Name;
-            majorForm.Status = majors.Status;
-            majorForm.SchoolId = majors.SchoolId;
+            majorForm.Name = majorViewModel.Name;
+            majorForm.Status = majorViewModel.Status;
+            majorForm.SchoolId = majorViewModel.SchoolId;
             var major = await _majorsRepository.Update(majorForm);
-            return Ok(major);
+            return Ok(new MajorViewModel()
+            {
+                Id = major.MajorId,
+                Name = major.Name,
+                Status = major.Status,
+                SchoolId = major.SchoolId
+            });
+
         }
 
         // POST: api/Majors
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public IActionResult PostMajors(Majors majors)
+        public async Task<IActionResult> PostMajors(MajorViewModel majorViewModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            var major = _majorsRepository.Create(majors);
+            var major = await _majorsRepository.Create(new Majors()
+            {
+                MajorId = majorViewModel.Id,
+                Name = majorViewModel.Name,
+                Status = majorViewModel.Status,
+                SchoolId = majorViewModel.SchoolId
+            });
 
-            return CreatedAtAction("GetMajors", new { id = majors.MajorId }, major);
+            return CreatedAtAction("GetMajors", new { id = major.MajorId }, major);
         }
 
         // DELETE: api/Majors/5

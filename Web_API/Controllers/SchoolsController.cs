@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using DTO.Enums;
+using DTO.SchoolDto;
 using Microsoft.AspNetCore.Mvc;
 using Web_API.Entities;
 using Web_API.Repository;
@@ -20,8 +23,14 @@ namespace Web_API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-         
-            return Ok(await _iSchoolRepository.GetList());
+            var school = await _iSchoolRepository.GetList();
+            var schools = school.Select(x => new SchoolViewModel()
+            {
+                Id = x.SchoolId,
+                Name = x.Name,
+                Status = x.Status
+            });
+            return Ok(schools);
         }
 
         //Search
@@ -35,23 +44,34 @@ namespace Web_API.Controllers
                 return NotFound();
             }
 
-            return Ok(school);
+            return Ok(new SchoolViewModel()
+            {
+                Id = school.SchoolId,
+                Name = school.Name,
+                Status = school.Status
+            });
         }
      
         //AddSchool
          [HttpPost]
-        public async Task<IActionResult> PostSchool([FromBody] School school)
+        public async Task<IActionResult> PostSchool(SchoolViewModel schoolViewModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            var schools = await _iSchoolRepository.Create(school);
+            var schools = await _iSchoolRepository.Create(new School()
+            {
+                SchoolId = schoolViewModel.Id,
+                Name = schoolViewModel.Name,
+                Status = schoolViewModel.Status
+            });
 
-            return CreatedAtAction("GetSchool", new { id = school.SchoolId }, schools);
+
+            return CreatedAtAction("GetSchool", new { id = schools.SchoolId }, schools);
         }
 
         //Edit School
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSchool(int id, School school)
+        public async Task<IActionResult> PutSchool(int id, SchoolViewModel schoolViewModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -61,11 +81,16 @@ namespace Web_API.Controllers
                 return NotFound($"{id} is not fond");
             }
 
-            schoolForm.Name = school.Name;
-            schoolForm.Status = school.Status;
+            schoolForm.Name = schoolViewModel.Name;
+            schoolForm.Status = schoolViewModel.Status;
             var schools = await _iSchoolRepository.Update(schoolForm);
 
-            return Ok(schools);
+            return Ok(new SchoolViewModel()
+            {
+                Id = schools.SchoolId,
+                Name = schools.Name,
+                Status = schools.Status
+            });
         }
 
         // DELETE School

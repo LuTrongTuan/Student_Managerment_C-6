@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Blazor_WebAssembly.IServices;
 
 namespace Blazor_WebAssembly
 {
@@ -16,7 +17,7 @@ namespace Blazor_WebAssembly
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
-
+            builder.Services.AddTransient<ISchoolApiClient, ISchoolApiClient>();
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             await builder.Build().RunAsync();
