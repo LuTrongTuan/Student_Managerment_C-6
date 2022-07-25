@@ -8,5 +8,6 @@ namespace DTO.SubjectDto
         public string Name { get; set; }
         public double Summary { get; set; }
         public Status Status { get; set; }
+        public int? SchoolId { get; set; }
     }
 }

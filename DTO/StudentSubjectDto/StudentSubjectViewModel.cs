@@ -9,7 +9,7 @@ namespace DTO
     public class StudentSubjectViewModel
     {
         public int Id { get; set; }
-        public int StudentId { get; set; }
-        public int SubjectId { get; set; }
+        public int? StudentId { get; set; }
+        public int? SubjectId { get; set; }
     }
 }

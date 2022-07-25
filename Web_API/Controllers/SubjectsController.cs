@@ -28,7 +28,8 @@ namespace Web_API.Controllers
             {
                 SubjectId = c.SubjectId,
                 Name = c.Name,
-                Status = c.Status
+                Status = c.Status,
+                SchoolId = c.SchoolId
             });
             return Ok(subjects);
         }
@@ -49,7 +50,8 @@ namespace Web_API.Controllers
                 SubjectId = subject.SubjectId,
                 Name = subject.Name,
                 Summary = subject.Summary,
-                Status = subject.Status
+                Status = subject.Status,
+                SchoolId = subject.SchoolId
             });
         }
 
@@ -68,13 +70,15 @@ namespace Web_API.Controllers
             subjectForm.Name = subjectViewModel.Name;
             subjectForm.Summary = subjectViewModel.Summary;
             subjectForm.Status = subjectViewModel.Status;
+            subjectForm.SchoolId = subjectViewModel.SchoolId;
             var result = await _subjectRepository.Update(subjectForm);
             return Ok(new SubjectViewModel()
             {
                 SubjectId = result.SubjectId,
                 Name = result.Name,
                 Summary = result.Summary,
-                Status = result.Status
+                Status = result.Status,
+                SchoolId = result.SchoolId
             });
         }
 
@@ -90,7 +94,8 @@ namespace Web_API.Controllers
                 SubjectId = subjectViewModel.SubjectId,
                 Name = subjectViewModel.Name,
                 Summary = subjectViewModel.Summary,
-                Status = subjectViewModel.Status
+                Status = subjectViewModel.Status,
+                SchoolId = subjectViewModel.SchoolId
             });
 
             return CreatedAtAction("GetSubject", new { id = subjects.SubjectId }, subjects);

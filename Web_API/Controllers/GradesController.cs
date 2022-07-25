@@ -29,7 +29,7 @@ namespace Web_API.Controllers
                 Id = x.GradeId,
                 Name = x.Name,
                 Status = x.Status,
-                MajorId = x.SchoolId
+                SchoolId = x.SchoolId
             });
             return Ok(grades);
         }
@@ -50,7 +50,7 @@ namespace Web_API.Controllers
                 Id = grade.GradeId,
                 Name = grade.Name,
                 Status = grade.Status,
-                MajorId = grade.SchoolId
+                SchoolId = grade.SchoolId
             });
         }
         // POST: api/Grades
@@ -63,7 +63,7 @@ namespace Web_API.Controllers
                 GradeId = gradeViewModel.Id,
                 Name = gradeViewModel.Name,
                 Status = gradeViewModel.Status,
-                SchoolId = gradeViewModel.MajorId
+                SchoolId = gradeViewModel.SchoolId
             });
 
             return CreatedAtAction("GetGrade", new { id = grades.GradeId }, grades);
@@ -84,14 +84,14 @@ namespace Web_API.Controllers
 
             gradeForm.Name = gradeViewModel.Name;
             gradeForm.Status = gradeViewModel.Status;
-            gradeForm.SchoolId = gradeViewModel.MajorId;
+            gradeForm.SchoolId = gradeViewModel.SchoolId;
             var grads = await _maGradeRepository.Update(gradeForm);
             return Ok(new GradeViewModel()
             {
                 Id = grads.GradeId,
                 Name = grads.Name,
                 Status = grads.Status,
-                MajorId = grads.SchoolId
+                SchoolId = grads.SchoolId
             });
         }
         // DELETE: api/Grades/5

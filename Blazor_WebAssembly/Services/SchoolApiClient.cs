@@ -6,6 +6,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Blazor_WebAssembly.IServices;
 using Blazor_WebAssembly.Pages;
+using DTO.SchoolDto;
 
 namespace Blazor_WebAssembly.Services
 {
@@ -17,9 +18,9 @@ namespace Blazor_WebAssembly.Services
         {
             _httpClient = httpClient;
         }
-        public async Task<List<School>> GetSchool()
+        public async Task<List<SchoolViewModel>> GetSchool()
         {
-            var result = await _httpClient.GetFromJsonAsync<List<School>>("api/Schools");
+            var result = await _httpClient.GetFromJsonAsync<List<SchoolViewModel>>("api/Schools");
             return result;
         }
     }

@@ -10,3 +10,15 @@ C:\Users\Admin\Desktop\C#6\Student_Managerment_C-6\DTO\obj\Debug\net5.0\DTO.cspr
 C:\Users\Admin\Desktop\C#6\Student_Managerment_C-6\DTO\obj\Debug\net5.0\DTO.dll
 C:\Users\Admin\Desktop\C#6\Student_Managerment_C-6\DTO\obj\Debug\net5.0\ref\DTO.dll
 C:\Users\Admin\Desktop\C#6\Student_Managerment_C-6\DTO\obj\Debug\net5.0\DTO.pdb
+C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Student_Managerment_C-6\DTO\bin\Debug\net5.0\DTO.deps.json
+C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Student_Managerment_C-6\DTO\bin\Debug\net5.0\DTO.dll
+C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Student_Managerment_C-6\DTO\bin\Debug\net5.0\DTO.pdb
+C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Student_Managerment_C-6\DTO\obj\Debug\net5.0\DTO.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Student_Managerment_C-6\DTO\obj\Debug\net5.0\DTO.AssemblyInfoInputs.cache
+C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Student_Managerment_C-6\DTO\obj\Debug\net5.0\DTO.AssemblyInfo.cs
+C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Student_Managerment_C-6\DTO\obj\Debug\net5.0\DTO.csproj.CoreCompileInputs.cache
+C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Student_Managerment_C-6\DTO\obj\Debug\net5.0\DTO.dll
+C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Student_Managerment_C-6\DTO\obj\Debug\net5.0\DTO.pdb
+C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Student_Managerment_C-6\DTO\obj\Debug\net5.0\ref\DTO.dll
+C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Student_Managerment_C-6\DTO\bin\Debug\net5.0\ref\DTO.dll
+C:\Users\LuTrongTuan\Desktop\IT16302_C#6\Student_Managerment_C-6\DTO\obj\Debug\net5.0\DTO.csproj.AssemblyReference.cache

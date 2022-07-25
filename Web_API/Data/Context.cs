@@ -6,7 +6,7 @@ using Web_API.Entities;
 
 namespace Web_API.Data
 {
-    public class Context:IdentityDbContext<IdentityUser>
+    public class Context:IdentityDbContext<Account>
     {
         public Context(DbContextOptions<Context> options):base(options) {}
         protected override void OnModelCreating(ModelBuilder builder)

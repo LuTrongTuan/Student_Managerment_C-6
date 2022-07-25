@@ -305,6 +305,16 @@
         "runtime": {
           "lib/net5.0/System.Net.Http.Json.dll": {}
         }
+      },
+      "DTO/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/DTO.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DTO.dll": {}
+        }
       }
     },
     "net5.0/browser-wasm": {
@@ -610,6 +620,16 @@
         },
         "runtime": {
           "lib/net5.0/System.Net.Http.Json.dll": {}
+        }
+      },
+      "DTO/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/DTO.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DTO.dll": {}
         }
       }
     }
@@ -1135,29 +1155,40 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "DTO/1.0.0": {
+      "type": "project",
+      "path": "../DTO/DTO.csproj",
+      "msbuildProject": "../DTO/DTO.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "DTO >= 1.0.0",
       "Microsoft.AspNetCore.Components.WebAssembly >= 5.0.17",
       "Microsoft.AspNetCore.Components.WebAssembly.DevServer >= 5.0.17",
       "System.Net.Http.Json >= 5.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {}
+    "C:\\Users\\LuTrongTuan\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\C#6\\Student_Managerment_C-6\\Blazor_WebAssembly\\Blazor_WebAssembly.csproj",
+      "projectUniqueName": "C:\\Users\\LuTrongTuan\\Desktop\\IT16302_C#6\\Student_Managerment_C-6\\Blazor_WebAssembly\\Blazor_WebAssembly.csproj",
       "projectName": "Blazor_WebAssembly",
-      "projectPath": "C:\\Users\\Admin\\Desktop\\C#6\\Student_Managerment_C-6\\Blazor_WebAssembly\\Blazor_WebAssembly.csproj",
-      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\Desktop\\C#6\\Student_Managerment_C-6\\Blazor_WebAssembly\\obj\\",
+      "projectPath": "C:\\Users\\LuTrongTuan\\Desktop\\IT16302_C#6\\Student_Managerment_C-6\\Blazor_WebAssembly\\Blazor_WebAssembly.csproj",
+      "packagesPath": "C:\\Users\\LuTrongTuan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\LuTrongTuan\\Desktop\\IT16302_C#6\\Student_Managerment_C-6\\Blazor_WebAssembly\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\LuTrongTuan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1170,7 +1201,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\LuTrongTuan\\Desktop\\IT16302_C#6\\Student_Managerment_C-6\\DTO\\DTO.csproj": {
+              "projectPath": "C:\\Users\\LuTrongTuan\\Desktop\\IT16302_C#6\\Student_Managerment_C-6\\DTO\\DTO.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -1210,7 +1245,7 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.NETCore.App.Runtime.browser-wasm",
-            "version": "[5.0.17, 5.0.17]"
+            "version": "[5.0.15, 5.0.15]"
           }
         ],
         "frameworkReferences": {
@@ -1218,7 +1253,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.409\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {

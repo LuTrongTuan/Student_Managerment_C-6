@@ -7,6 +7,6 @@ namespace DTO.GradeDto
         public int Id { get; set; }
         public string Name { get; set; }
         public Status Status { get; set; }
-        public int MajorId { get; set; }
+        public int? SchoolId { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace DTO.StudentDto
         public string? Email { get; set; }
         public string? Address { get; set; }
         public Status Status { get; set; }
-        public int GradeId { get; set; }
+        public int? GradeId { get; set; }
+        public int? MajorId { get; set; }
     }
 }

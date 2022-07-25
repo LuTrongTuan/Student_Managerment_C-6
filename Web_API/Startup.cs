@@ -1,19 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Web_API.Data;
+using Web_API.Entities;
 using Web_API.Repository;
 
 namespace Web_API
@@ -36,17 +30,23 @@ namespace Web_API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Web_API", Version = "v1" });
             });
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+                builder => builder.SetIsOriginAllowed((host) => true)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()));
             services.AddDbContext<Context>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("StudentManagement"));
             });
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
-                options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<Context>();
+            services.AddIdentity<Account, IdentityRole>().AddEntityFrameworkStores<Context>();
+
             services.AddTransient<ISchoolRepository, SchoolRepository>();
             services.AddTransient<IMajorsRepository, MajorsRepository>();
             services.AddTransient<IGradeRepository, GradeRepository>();
             services.AddTransient<IStudentRepository, StudentRepository>();
             services.AddTransient<ISubjectRepository, SubjectRepository>();
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,8 +62,10 @@ namespace Web_API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

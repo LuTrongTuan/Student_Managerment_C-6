@@ -3,8 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using DTO.StudentDto;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Web_API.Data;
 using Web_API.Entities;
 using Web_API.Repository;
 
@@ -33,7 +31,9 @@ namespace Web_API.Controllers
                 Phone = x.Phone,
                 Address = x.Address,
                 Email = x.Email,
-                Gender = x.Gender
+                Gender = x.Gender,
+                MajorId = x.MajorId,
+                GradeId = x.GradeId
             });
             return Ok(students);
         }
@@ -56,7 +56,9 @@ namespace Web_API.Controllers
                 Phone = student.Phone,
                 Address = student.Address,
                 Email = student.Email,
-                Gender = student.Gender
+                Gender = student.Gender,
+                MajorId = student.MajorId,
+                GradeId = student.GradeId
             });
         }
         // PUT: api/Students/5
@@ -78,6 +80,8 @@ namespace Web_API.Controllers
             studentForm.Gender = studentViewModel.Gender;
             studentForm.Phone = studentViewModel.Phone;
             studentForm.Status = studentViewModel.Status;
+            studentForm.MajorId = studentViewModel.MajorId;
+            studentForm.GradeId = studentViewModel.GradeId;
             var result = await _studentRepository.Update(studentForm);
             return Ok(new StudentViewModel()
             {
@@ -86,7 +90,9 @@ namespace Web_API.Controllers
                 Phone = result.Phone,
                 Address = result.Address,
                 Email = result.Email,
-                Gender = result.Gender
+                Gender = result.Gender,
+                MajorId = result.MajorId,
+                GradeId = result.GradeId
             });
         }
 
@@ -102,7 +108,9 @@ namespace Web_API.Controllers
                 Phone = studentViewModel.Phone,
                 Address = studentViewModel.Address,
                 Email = studentViewModel.Email,
-                Gender = studentViewModel.Gender
+                Gender = studentViewModel.Gender,
+                MajorId = studentViewModel.MajorId,
+                GradeId = studentViewModel.GradeId
             });
             return CreatedAtAction("GetStudent", new { id = students.StudentId }, students);
         }

@@ -1,13 +1,10 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Blazor_WebAssembly.IServices;
+using Blazor_WebAssembly.Services;
 
 namespace Blazor_WebAssembly
 {
@@ -17,8 +14,8 @@ namespace Blazor_WebAssembly
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
-            builder.Services.AddTransient<ISchoolApiClient, ISchoolApiClient>();
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:5001/") });
+            builder.Services.AddTransient<ISchoolApiClient, SchoolApiClient>();
 
             await builder.Build().RunAsync();
         }
